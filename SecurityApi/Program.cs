@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SecurityApi.Core.Database;
 using SecurityApi.Core.Entities;
+using SecurityApi.Core.Interface;
+using SecurityApi.Core.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -83,6 +85,8 @@ builder.Services
             
         };
     });
+//Dependency Injection
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
