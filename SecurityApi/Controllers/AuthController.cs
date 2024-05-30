@@ -40,6 +40,7 @@ namespace SecurityApi.Controllers
             await _roleManager.CreateAsync(new IdentityRole(StaticUserRoles.ADMIN));
             await _roleManager.CreateAsync(new IdentityRole(StaticUserRoles.USER));
 
+
             return Ok("Roles seeding complete successfully.");
         }
 
