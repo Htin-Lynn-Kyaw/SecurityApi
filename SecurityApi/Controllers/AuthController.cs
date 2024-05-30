@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SecurityApi.Core.Dtos;
+using SecurityApi.Core.Entities;
 using SecurityApi.Core.Utility;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,11 +15,11 @@ namespace SecurityApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -53,8 +54,10 @@ namespace SecurityApi.Controllers
                 return BadRequest("User already exist.");
             }
 
-            IdentityUser newUser = new IdentityUser()
+            AppUser newUser = new AppUser()
             {
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
                 UserName = registerDto.UserName,
                 Email = registerDto.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
